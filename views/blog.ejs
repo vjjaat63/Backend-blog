@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head") %>
+        <title>Signin</title>
+</head>
+
+<body>
+    <%- include("./partials/nav") %>
+
+    <% if (locals.blog) { %>
+     
+        <div class="container">
+            <h1><%= blog.title %></h1>
+            <img src="<%= blog.coverImageURL %>" alt="" width="200px">
+            <p><%= blog.body %></p>
+            <div class="user">
+            Posted By :<img src="<%= blog.createdBy.profileImageURL %>" width="30px" class="rounded-circle">
+                 <%= blog.createdBy.fullName %>
+            </div>
+        </div>
+        
+    <% } %>
+
+    <h3 class="container">Comments (<%= Comments.length %>)</h3>
+        
+    <% if (locals.user) { %>
+
+        <div class="container">
+            <form action='/blog/comment/<%= blog._id %>' method="post">
+                <input type="text" name="content" placeholder="enter your comment">
+                <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+        </div>
+    <% } %>
+
+    <% if (locals.Comments) { %>
+    <div class="container mt-3">
+
+        <% Comments.forEach(Comment => { %>
+            <img src="<%=Comment.createdBy.profileImageURL %>" width="34px" style="border-radius: 50%;">
+            <%= Comment.createdBy.fullName %>
+            <div>
+                <%= Comment.content %>
+            </div>
+            <% }) %>
+            
+        </div>
+            <% } %>
+   
+    <%- include("./partials/script") %>
+</body>
+
+</html>
