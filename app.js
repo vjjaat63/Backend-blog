@@ -10,11 +10,21 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const PORT = process.env.PORT;
 
-mongoose.connect(process.env.MONGO_URL)
-    .then(() => console.log("MongoDB connected"))
-    .catch((err) => console.log("Failed to connect to mongoDB ", err.message));
+// console.log("Connecting to MongoDB with:", process.env.MONGO_URL);
 
-app.use(express.urlencoded("extended : false"));
+mongoose.connect(process.env.MONGO_URL)
+    .then(() => {
+        // console.log("✅ MongoDB connected");
+        app.listen(PORT, () => {
+            // console.log(`🚀 Server running on http://localhost:${PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.error("❌ MongoDB connection failed:", err.message);
+    });
+
+
+app.use(express.urlencoded({extended : false}));
 app.use(cookieParser());
 app.use(checkAuth('Token'));
 app.use(express.static(path.resolve('./public')))
@@ -33,5 +43,3 @@ app.get("/", async (req, res) => {
     });
 
 })
-
-app.listen(PORT, () => console.log(`Server started at port ${PORT}`))
