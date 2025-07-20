@@ -6,14 +6,14 @@
         <title>Homepage</title>
 </head>
 
-<body>
+<body >
     <%- include("./partials/nav") %>
 
         <% if (locals.blogs) { %>
             <div class="container row">
                 <% blogs.forEach(blog=> { %>
 
-                    <div class="card mt-3 col-4" style="width: 18rem;">
+                    <div class="card mt-3 col-4" style="width: 18rem;margin: 10px;display:flex;">
                         <img src="<%= blog.coverImageURL %>" class="card-img-top" alt="..." style="height: 200px; object-fit: contain;">
                         <div class="card-body">
                             <h5 class="card-title">
