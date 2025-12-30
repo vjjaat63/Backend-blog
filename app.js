@@ -15,7 +15,7 @@ const PORT = process.env.PORT;
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {
         // console.log("✅ MongoDB connected");
-        app.listen(PORT, () => {
+        app.listen(PORT || 3000, () => {
             // console.log(`🚀 Server running on http://localhost:${PORT}`);
         });
     })
@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGO_URL)
     });
 
 
-app.use(express.urlencoded({extended : false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(checkAuth('Token'));
 app.use(express.static(path.resolve('./public')))
