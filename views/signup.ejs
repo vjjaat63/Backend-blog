@@ -3,24 +3,76 @@
 
 <head>
     <%- include("./partials/head") %>
-        <title>Signup</title>
+        <title>Sign Up - BlogIt</title>
 </head>
 
 <body>
     <%- include("./partials/nav") %>
 
-    <div class="container">
-        <form action="/user/signup" method="post" enctype="multipart/form-data">
-            <label for="fullName"> Enter UserName :</label>
-            <input type="text" name="fullName" id="fullName" required>
-            <label for="email"> Enter e-mail :</label>
-            <input type="text" name="email" id="email" required>
-            <label for="password"> Enter password :</label>
-            <input type="text" name="password" id="password" required>
-            <label for="profileImageURL">Profile Image :</label>
-            <input type="file" name="profileImageURL" id="profileImageURL">    
-            <button type="submit">Signup</button>
-        </form>
+    <div class="main-container">
+        <div class="blog-detail">
+            <div class="blog-detail-header">
+                <h1 class="blog-detail-title">Join BlogIt</h1>
+                <p style="color: var(--text-secondary); font-size: 1.125rem;">Create your account and start sharing your stories</p>
+            </div>
+            
+            <form action="/user/signup" method="post" enctype="multipart/form-data" style="max-width: 400px; margin: 0 auto;">
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="fullName" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">Full Name</label>
+                    <input type="text" 
+                           name="fullName" 
+                           id="fullName" 
+                           required
+                           class="comment-input"
+                           placeholder="Enter your full name"
+                           style="width: 100%;">
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">Email Address</label>
+                    <input type="email" 
+                           name="email" 
+                           id="email" 
+                           required
+                           class="comment-input"
+                           placeholder="Enter your email address"
+                           style="width: 100%;">
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="password" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">Password</label>
+                    <input type="password" 
+                           name="password" 
+                           id="password" 
+                           required
+                           class="comment-input"
+                           placeholder="Create a strong password"
+                           style="width: 100%;">
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <label for="profileImageURL" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">Profile Picture</label>
+                    <input type="file" 
+                           name="profileImageURL" 
+                           id="profileImageURL" 
+                           accept="image/*"
+                           class="comment-input"
+                           style="width: 100%; padding: 0.75rem;">
+                    <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.5rem;">
+                        Upload a profile picture (optional)
+                    </p>
+                </div>
+                
+                <button type="submit" class="btn-primary" style="width: 100%;">Create Account</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                <p style="color: var(--text-secondary);">
+                    Already have an account? 
+                    <a href="/user/signin" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Sign In</a>
+                </p>
+            </div>
+        </div>
     </div>
 
     <%- include("./partials/script") %>

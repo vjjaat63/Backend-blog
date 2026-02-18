@@ -3,33 +3,56 @@
 
 <head>
     <%- include("./partials/head") %>
-        <title>Homepage</title>
+        <title>BlogIt - Professional Blog Platform</title>
 </head>
 
-<body >
+<body>
     <%- include("./partials/nav") %>
 
-        <% if (locals.blogs) { %>
-            <div class="container row">
+    <div class="main-container">
+        <% if (locals.blogs && blogs.length > 0) { %>
+            <div class="blog-grid">
                 <% blogs.forEach(blog=> { %>
-
-                    <div class="card mt-3 col-4" style="width: 18rem;margin: 10px;display:flex;">
-<img src="<%= blog.coverImageURL || '/images/default.jpg' %>" class="card-img-top" alt="Cover Image"
-    style="height: 200px; object-fit: contain;">
-
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <%= blog.title %>
-                            </h5>
-                            <a href="/blog/<%=blog._id %>" class="btn btn-primary">View Full Blog</a>
+                    <div class="blog-card">
+                        <div class="blog-image-container">
+                            <img src="<%= blog.coverImageURL || '/images/default.jpg' %>" 
+                                 class="blog-image" 
+                                 alt="Cover Image"
+                                 onerror="this.src='/images/default.jpg'">
+                        </div>
+                        <div class="blog-content">
+                            <h2 class="blog-title"><%= blog.title %></h2>
+                            <div class="blog-meta">
+                                <% if (blog.createdBy && blog.createdBy.profileImageURL) { %>
+                                    <img src="<%= blog.createdBy.profileImageURL %>" 
+                                         class="author-avatar" 
+                                         alt="Author Avatar"
+                                         onerror="this.src='/images/default.jpg'">
+                                <% } %>
+                                <span><%= blog.createdBy ? blog.createdBy.fullName : 'Anonymous' %></span>
+                            </div>
+                            <p class="blog-excerpt">
+                                <%= blog.body ? blog.body.substring(0, 150) + '...' : 'Read more about this interesting blog post...' %>
+                            </p>
+                            <a href="/blog/<%=blog._id %>" class="btn-primary">Read More</a>
                         </div>
                     </div>
-                    <% }) %>
+                <% }) %>
             </div>
+        <% } else { %>
+            <div class="empty-state">
+                <h3>No Blog Posts Yet</h3>
+                <p>Be the first to share your thoughts with the community!</p>
+                <% if (locals.user) { %>
+                    <a href="/blog/add-new" class="btn-primary">Create Your First Blog</a>
+                <% } else { %>
+                    <a href="/user/signup" class="btn-primary">Sign Up to Start Blogging</a>
+                <% } %>
+            </div>
+        <% } %>
+    </div>
 
-            <% } %>
-
-                <%- include("./partials/script") %>
+    <%- include("./partials/script") %>
 </body>
 
 </html>

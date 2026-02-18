@@ -3,22 +3,61 @@
 
 <head>
     <%- include("./partials/head") %>
-        <title>Add new Blog </title>
+        <title>Create New Blog - BlogIt</title>
 </head>
 
 <body>
     <%- include("./partials/nav") %>
 
-    <div class="container">
-        <form method="post" action="/blog" enctype="multipart/form-data">
-            <label for="title">Title : </label>
-            <input type="text" name = "title" id="title">
-            <label for="body"> Body : </label>
-            <textarea name="body" id="bodt">Write your blog here ...</textarea>
-            <label for="coverImageURL">Upload cover image</label>
-            <input type="file" name="coverImageURL" id="coverImageURL">
-            <button type="submit"> Add Blog</button>
-        </form>
+    <div class="main-container">
+        <div class="blog-detail">
+            <div class="blog-detail-header">
+                <h1 class="blog-detail-title">Create New Blog Post</h1>
+                <p style="color: var(--text-secondary); font-size: 1.125rem;">Share your thoughts with the community</p>
+            </div>
+            
+            <form method="post" action="/blog" enctype="multipart/form-data">
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="title" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">Blog Title</label>
+                    <input type="text" 
+                           name="title" 
+                           id="title" 
+                           required
+                           class="comment-input"
+                           placeholder="Enter an engaging title for your blog post"
+                           style="width: 100%;">
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="body" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">Blog Content</label>
+                    <textarea name="body" 
+                              id="body" 
+                              required
+                              class="comment-input"
+                              placeholder="Write your blog content here..."
+                              rows="12"
+                              style="width: 100%; resize: vertical;">Write your blog here ...</textarea>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <label for="coverImageURL" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">Cover Image</label>
+                    <input type="file" 
+                           name="coverImageURL" 
+                           id="coverImageURL" 
+                           accept="image/*"
+                           class="comment-input"
+                           style="width: 100%; padding: 0.75rem;">
+                    <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.5rem;">
+                        Upload an eye-catching cover image for your blog post (optional)
+                    </p>
+                </div>
+                
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn-primary">Publish Blog</button>
+                    <a href="/" class="btn-primary" style="background: var(--secondary-color); text-decoration: none;">Cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
 
     <%- include("./partials/script") %>
