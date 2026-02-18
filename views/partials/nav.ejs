@@ -15,18 +15,21 @@
                     <a class="nav-link" href="/blog/add-new">Add Blog</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
+                    <% if (user.profileImageURL) { %>
+                        <img src="<%= user.profileImageURL %>" alt="Profile" style="width: 28px;height: 28px;border-radius: 50%;object-fit: cover;">
+                    <% } else { %>
+                        <div style="width: 28px;height: 28px;border-radius: 50%;background: var(--primary-color);color: white;display: flex;align-items: center;justify-content: center;font-size: 12px;font-weight: 600;">
+                            <%= user.fullName.charAt(0).toUpperCase() %>
+                        </div>
+                    <% } %>
                     <%= user.fullName %>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/user/logout">Logout</a>
                 </div>
-                
-                <li>
-                    <img src="<%= user.profileImageURL %>" alt="" style="width: 33px;border-radius: 40%;">
                 </li>
-            </li>
             <% } else { %>
                 <li class="nav-item">
                     <a href="/user/signin" class="nav-link">SignIn</a>
