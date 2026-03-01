@@ -1,5 +1,5 @@
 const JWT = require("jsonwebtoken");
-const secret = "Vishal#123";
+const secret = process.env.SECRET;
 
 function createToken(user){
     const payload = {
@@ -10,7 +10,7 @@ function createToken(user){
        profileImageURL : user.profileImageURL, 
     }
 
-    const token = JWT.sign(payload,secret);
+    const token = JWT.sign(payload,secret,{expiresIn : "30m"});
     return token;
 }
 

@@ -9,20 +9,34 @@ const { checkAuth } = require("./middleware/user");
 const cookieParser = require("cookie-parser");
 const app = express();
 const PORT = process.env.PORT;
-
+const redisClient = require("./config/redis")
 // console.log("Connecting to MongoDB with:", process.env.MONGO_URL);
 
-mongoose.connect(process.env.MONGO_URL)
-    .then(() => {
+const InitializeConnection = async()=>{
+    try{
+        
+        // // connect to redis
+        // await redisClient.connect();
+        // console.log("Connected to Redis")
+        
+        // // connect to DB
+        // await mongoose.connect(process.env.MONGO_URL)
         // console.log("✅ MongoDB connected");
-        app.listen(PORT || 3000, () => {
-            // console.log(`🚀 Server running on http://localhost:${PORT}`);
-        });
-    })
-    .catch((err) => {
-        console.error("❌ MongoDB connection failed:", err.message);
-    });
 
+        // connecting mongoDB and redis in parallel
+
+        await Promise.all([redisClient.connect(),mongoose.connect(process.env.MONGO_URL)]);
+
+        console.log("Connected to MongoDB and redis");
+        app.listen(PORT || 3000,()=>{
+            console.log("Listening at port " ,PORT)
+        })    }
+    catch(err){
+        console.log("Failed to connected to DBs : ",err);
+    }
+}
+
+InitializeConnection();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

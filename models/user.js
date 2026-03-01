@@ -49,6 +49,7 @@ userSchema.pre("save",function(next){
 
 });
 
+
 userSchema.static("checkUserAndCreateToken",async function(email,password){
     const user = await this.findOne({ email});
     if (!user)
