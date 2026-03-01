@@ -86,6 +86,7 @@ router.get("/logout", async (req, res) => {
         // console.log(token);
         const decoded = await jwt.decode(token);
         // console.log(decoded);
+        // console.log(decoded.exp);
         await redisClient.set(`token:${token}`, "Blocked");
         // await redisClient.expire(`token:${token}`, 1800);
         await redisClient.expireAt(`token:${token}`, decoded.exp);
