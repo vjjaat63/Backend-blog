@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { schema } = require("./blog");
 
 const commentSchema = new mongoose.Schema({
     content : {

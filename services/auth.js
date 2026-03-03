@@ -1,6 +1,11 @@
 const JWT = require("jsonwebtoken");
 const secret = process.env.SECRET;
 
+if (!secret) {
+    console.error("ERROR: SECRET environment variable is not set");
+    process.exit(1);
+}
+
 function createToken(user){
     const payload = {
        _id : user._id,
